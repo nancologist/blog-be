@@ -5,7 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
-const port = 3000;
+const port = 8000;
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // * = Allow Any Client
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE'); // Allowing the Http Methods which you need (separated by a comma)
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 app.get('/test', (req, res) => {
     res.status(200).json({
         name: 'Helmut',
