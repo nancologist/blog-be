@@ -9,6 +9,11 @@
 6. `npm install --save-dev @types/node`
 7. `npm install --save-dev @types/express`
 8. `npm install --save-dev @types/body-parser`
+9. In `tsconfig.json`:
+    * `"rootDir": "./src"`
+    * `"outDir": "./dist"`
+    * `"moduleResolution": "node"`
+10. `npm install --save-dev nodemon`
 
 ## Run
 1. `tsc --watch`
