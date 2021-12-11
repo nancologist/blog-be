@@ -34,18 +34,19 @@ class FileUpload {
   result: any[];
 }
 
-class S3Controller {
-  FOLDER = '/* s3-folder-name */'; // For example, 'my_folder'.
-  BUCKET = '/* s3-bucket-name */'; // For example, 'my_bucket'.
+export class S3Controller {
+  FOLDER = ''; 
+  BUCKET = 'nancologist-blog'; // For example, 'my_bucket'.
 
   private static getS3Bucket(): any {
-    return new S3(
-      {
-        accessKeyId: '/* access key here */', // For example, 'AKIXXXXXXXXXXXGKUY'.
-        secretAccessKey: '/* secret key here */', // For example, 'm+XXXXXXXXXXXXXXXXXXXXXXDDIajovY+R0AGR'.
-        region: '/* region here */' // For example, 'us-east-1'.
-      }
-    );
+    return new S3({
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // !!!!!!!!!!!!! TODO: Add the two following values into env vars: !!!!!!!!!!!!!
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      accessKeyId: 'AKIASHTNMMYUFEWZMQFM',
+      secretAccessKey: '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',
+      region: 'eu-central-1'
+    });
   }
 
   public uploadFile(file) {
