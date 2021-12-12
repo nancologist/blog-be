@@ -10,6 +10,16 @@ app.use((req, res, next) => {
   next();
 });
 
+// MULTER - UPLOAD
+const upload = multer({ dest: 'uploads/' });
+app.post('/up-image', upload.single('myImage'), (req, res) => {
+  console.log('fjskafjkajfk');
+  console.log(req.file)
+
+  res.status(200).json({
+    msg: 'UP_IMAGE'
+  })
+})
 app.get('/test', (req, res) => {
   res.status(200).json({
     name: 'Helmut',
