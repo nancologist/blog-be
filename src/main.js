@@ -1,8 +1,11 @@
 const app = require('express')();
+const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const PORT = process.env.PORT || 8000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
 
+// ALLOW CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', CLIENT_URL);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
@@ -20,6 +23,12 @@ app.post('/up-image', upload.single('myImage'), (req, res) => {
     msg: 'UP_IMAGE'
   })
 })
+
+
+// BODY PARSER
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// API ENDPOINTS:
 app.get('/test', (req, res) => {
   res.status(200).json({
     name: 'Helmut',
@@ -28,6 +37,7 @@ app.get('/test', (req, res) => {
   })
 })
 
+// RUN SERVER
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`)
 });
