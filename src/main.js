@@ -1,5 +1,4 @@
-import express from 'express';
-const app = express();
+const app = require('express')();
 
 const PORT = process.env.PORT || 8000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
