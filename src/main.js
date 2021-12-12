@@ -16,8 +16,18 @@ app.use((req, res, next) => {
 // MULTER - UPLOAD
 const upload = multer({ dest: 'uploads/' });
 app.post('/up-image', upload.single('myImage'), (req, res) => {
-  console.log('fjskafjkajfk');
-  console.log(req.file)
+  
+  // console.log(req.file) =>
+  // {
+  //   fieldname: 'myImage',
+  //   originalname: 'beachball.jpeg',
+  //   encoding: '7bit',
+  //   mimetype: 'image/jpeg',
+  //   destination: 'uploads/',
+  //   filename: 'c7a08486172dd1ef854c91de9dbd5038',
+  //   path: 'uploads/c7a08486172dd1ef854c91de9dbd5038',
+  //   size: 25582
+  // }
 
   res.status(200).json({
     msg: 'UP_IMAGE'
