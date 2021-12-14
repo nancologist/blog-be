@@ -1,9 +1,12 @@
+require('dotenv').config()
+const fs = require('fs');
 const app = require('express')();
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-const PORT = process.env.PORT || 8000;
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
+const PORT = process.env.PORT;
+const CLIENT_URL = process.env.CLIENT_URL
 
 // ALLOW CORS
 app.use((req, res, next) => {
@@ -15,23 +18,34 @@ app.use((req, res, next) => {
 
 // MULTER - UPLOAD
 const upload = multer({ dest: 'uploads/' });
-app.post('/up-image', upload.single('myImage'), (req, res) => {
-  
-  // console.log(req.file) =>
-  // {
-  //   fieldname: 'myImage',
-  //   originalname: 'beachball.jpeg',
-  //   encoding: '7bit',
-  //   mimetype: 'image/jpeg',
-  //   destination: 'uploads/',
-  //   filename: 'c7a08486172dd1ef854c91de9dbd5038',
-  //   path: 'uploads/c7a08486172dd1ef854c91de9dbd5038',
-  //   size: 25582
-  // }
+app.post('/up-image', upload.single('myImage'), async (req, res) => {
 
-  res.status(200).json({
-    msg: 'UP_IMAGE'
+  const client = new S3Client({
+    region: 'eu-central-1',
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
   })
+
+  const command = new PutObjectCommand({
+    Bucket: 'nancologist-blog',
+    Body: fs.createReadStream(req.file.path),
+    Key: req.file.originalname
+  })
+
+  let httpCode = 0
+  try {
+    const s3Res = await client.send(command)
+    fs.unlinkSync(req.file.path)
+    httpCode = s3Res.$metadata.httpStatusCode
+    res.status(httpCode).json({
+      msg: 'File successfully uploaded'
+    })
+  } catch (err) {
+    console.error(err)
+    res.json(err)
+  }
 })
 
 
