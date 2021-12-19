@@ -1,8 +1,6 @@
 require('dotenv').config()
 const app = require('express')();
 const bodyParser = require('body-parser');
-const runDB = require('./storage/oracle-db')
-runDB()
 
 const { allowCors } = require('./middleware');
 const articleRoutes = require('./routes/article');
