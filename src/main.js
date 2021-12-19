@@ -1,16 +1,23 @@
 require('dotenv').config()
-const app = require('express')();
-const bodyParser = require('body-parser');
+const express = require('express');
+
+const app = express()
 
 const { allowCors } = require('./middleware');
 const articleRoutes = require('./routes/article');
+const { connectDb } = require('./storage/mongodb');
 
 app.use(allowCors);
-app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/image', articleRoutes)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/article', articleRoutes)
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`App listening at http://localhost:${PORT}`)
-});
+
+connectDb(() => {
+  app.listen(PORT, () => {
+    console.log(`App listening at http://localhost:${PORT}`)
+  });
+})

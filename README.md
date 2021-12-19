@@ -45,3 +45,6 @@ https://www.oracle.com/database/technologies/appdev/quickstartnodejs.html#macos-
 
 CANCELED: There's a large file in `instantclient_19_8/` which needs Git LFS, but even if it's solved, this Instant Client is for MacOS, I'm not sure after deploying on Heroku it's gonna work. (Probabley Heroku has an instance of Linux!) I develop on MacOS so it makes the process very complicated. So I should go for another cloud db...
 ___
+
+## MangoDB
+* `db.collection.insert()` is deprecated. Use instead `.insertOne()` or `.insertMany()`
