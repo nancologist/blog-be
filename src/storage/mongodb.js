@@ -1,8 +1,6 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
-const MONGODB_USER = 'moridbblog'
-const MONGODB_PWD = 'J7AdrV59fVReE8M'
-const MONGODB_DB = 'blog_db'
+const { MONGODB_USER, MONGODB_PWD, MONGODB_DB } = process.env
 
 let _db;
 
