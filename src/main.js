@@ -12,6 +12,12 @@ app.use(allowCors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to BLOG API!'
+  })
+})
+
 app.use('/article', articleRoutes)
 
 const PORT = process.env.PORT;
