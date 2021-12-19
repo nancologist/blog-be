@@ -2,10 +2,10 @@ const { getDb } = require('../storage/mongodb')
 const collectionName = 'articles'
 
 class Article {
-  constructor({ title, body, imagePath, tags }) {
+  constructor({ title, body, imageName, tags }) {
     this.title = title
     this.body = body
-    this.imagePath = imagePath
+    this.imageName = imageName
     
     if (tags) {
       this.tags = tags

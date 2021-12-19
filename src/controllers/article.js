@@ -3,22 +3,28 @@ const s3 = require('../storage/aws-s3');
 const Article = require('../models/article')
 
 exports.postArticle = async (req, res) => {
-  const { title, body, imagePath } = req.body
+  const { articleTitle, articleBody } = req.body
+  const imageName = req.file.originalname
 
-  const article = new Article({ title, body, imagePath })
-  
   try {
+    const s3Res = await s3.saveFile(req.file)
+    fs.unlinkSync(req.file.path)
+
+    const article = new Article({ articleTitle, articleBody, imageName })
     const dbRes = await article.save()
-    console.log('dbRes: ', dbRes);
 
     res.json({
-      msg: `Document inserted with _id: ${dbRes.insertedId}`
+      code: 'POSTED',
+      msg: {
+        db: `Document inserted with _id: ${dbRes.insertedId}`,
+        s3: `Image uploaded with ETag: ${s3Res.ETag}`
+      }
     })
 
   } catch (err) {
-    console.log(err);
+    console.error(err)
     res.json({
-      msg: 'Failed to store document',
+      code: 'FAILED',
       ...err
     })
   }
