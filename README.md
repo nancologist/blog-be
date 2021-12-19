@@ -22,6 +22,7 @@
 
 14. `npm install @aws-sdk/client-s3`
 15. `npm install --save-dev dotenv`
+16. `npm i oracledb` Orcale SODA
 
 ## Run
 1. ~~`tsc --watch`~~
@@ -37,3 +38,6 @@
 * To send file, For `multer` you should always use the __NAME__ of the field you passed on the frontend to the `new FormData().append(NAME, ...)` And also you should add the `multipart` header for FE-request.
 
 * Because the upload process write files on system you should `sudo npm run serve` and before that you should run it from an admin account on your machine so: `su <admin-username>` and then password.
+
+## Oracle DB Connection (NodeJS + macOS)
+https://www.oracle.com/database/technologies/appdev/quickstartnodejs.html#macos-tab
