@@ -1,15 +1,7 @@
 const { getDb } = require('../storage/mongodb')
 const collectionName = 'articles'
 
-type Props = {
-  title: string;
-  body: string;
-  imageName?: string;
-  tags?: string[];
-}
-
 class Article {
-
   title: string;
   body: string;
   imageName?: string
@@ -27,6 +19,13 @@ class Article {
 
     return db.collection(collectionName).insertOne(this)
   }
+}
+
+type Props = {
+  title: string;
+  body: string;
+  imageName?: string;
+  tags?: string[];
 }
 
 export default Article;

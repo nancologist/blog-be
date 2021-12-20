@@ -12,15 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.postArticle = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
-exports.postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const imgFile = req.file;
     const { articleTitle, articleBody } = req.body;
-    const imageName = req.file.originalname;
+    const imageName = imgFile.originalname;
     try {
-        const s3Res = yield aws_s3_1.default.saveFile(req.file);
-        fs_1.default.unlinkSync(req.file.path);
+        const s3Res = yield aws_s3_1.default.saveFile(imgFile);
+        fs_1.default.unlinkSync(imgFile.path);
         const article = new article_1.default({
             title: articleTitle,
             body: articleBody,
@@ -43,18 +45,4 @@ exports.postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
-exports.uploadImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let httpCode = 0;
-    try {
-        const s3Res = yield aws_s3_1.default.saveFile(req.file);
-        fs_1.default.unlinkSync(req.file.path);
-        httpCode = +s3Res.$metadata.httpStatusCode;
-        res.status(httpCode).json({
-            msg: 'UPLOAD_DONE'
-        });
-    }
-    catch (err) {
-        console.error(err);
-        res.json(err);
-    }
-});
+exports.postArticle = postArticle;

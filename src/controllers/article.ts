@@ -1,16 +1,17 @@
 import fs from 'fs'
-import { Request, Response } from 'express'
+import { Request, Response, RequestHandler } from 'express'
 
 import s3 from '../storage/aws-s3'
 import Article from '../models/article'
 
-exports.postArticle = async (req: Request, res: Response) => {
+export const postArticle: RequestHandler = async (req: Request, res: Response) => {
+  const imgFile = <Express.Multer.File> req.file
   const { articleTitle, articleBody } = req.body
-  const imageName = req.file.originalname
+  const imageName = imgFile.originalname
 
   try {
-    const s3Res = await s3.saveFile(req.file)
-    fs.unlinkSync(req.file.path)
+    const s3Res = await s3.saveFile(imgFile)
+    fs.unlinkSync(imgFile.path)
 
     const article = new Article({
       title: articleTitle,
@@ -33,22 +34,5 @@ exports.postArticle = async (req: Request, res: Response) => {
       code: 'FAILED',
       err
     })
-  }
-}
-
-exports.uploadImage = async (req: any, res: any) => {
-  let httpCode = 0
-  try {
-    const s3Res = await s3.saveFile(req.file)
-    fs.unlinkSync(req.file.path)
-    httpCode = +s3Res.$metadata.httpStatusCode!
-
-    res.status(httpCode).json({
-      msg: 'UPLOAD_DONE'
-    })
-
-  } catch (err) {
-    console.error(err)
-    res.json(err)
   }
 }
