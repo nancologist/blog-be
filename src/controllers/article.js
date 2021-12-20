@@ -10,7 +10,11 @@ exports.postArticle = async (req, res) => {
     const s3Res = await s3.saveFile(req.file)
     fs.unlinkSync(req.file.path)
 
-    const article = new Article({ articleTitle, articleBody, imageName })
+    const article = new Article({
+      title: articleTitle,
+      body: articleBody,
+      imageName
+    })
     const dbRes = await article.save()
 
     res.json({
