@@ -1,8 +1,10 @@
-const fs = require('fs');
-const s3 = require('../storage/aws-s3');
-const Article = require('../models/article')
+import fs from 'fs'
+import { Request, Response } from 'express'
 
-exports.postArticle = async (req, res) => {
+import s3 from '../storage/aws-s3'
+import Article from '../models/article'
+
+exports.postArticle = async (req: Request, res: Response) => {
   const { articleTitle, articleBody } = req.body
   const imageName = req.file.originalname
 
@@ -29,17 +31,17 @@ exports.postArticle = async (req, res) => {
     console.error(err)
     res.json({
       code: 'FAILED',
-      ...err
+      err
     })
   }
 }
 
-exports.uploadImage = async (req, res) => {
+exports.uploadImage = async (req: any, res: any) => {
   let httpCode = 0
   try {
     const s3Res = await s3.saveFile(req.file)
     fs.unlinkSync(req.file.path)
-    httpCode = s3Res.$metadata.httpStatusCode
+    httpCode = +s3Res.$metadata.httpStatusCode!
 
     res.status(httpCode).json({
       msg: 'UPLOAD_DONE'

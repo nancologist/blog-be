@@ -1,17 +1,17 @@
 # Blog - Backend (NodeJS + ~~TS~~)
 
 ## Init
-1. ~~`sudo npm install -g typescript`~~
-2. ~~`tsc --init`~~
+1. `sudo npm install -g typescript` (IF not installed on your machine)
+2. `tsc --init`
 3. `npm init`
 4. `npm install --save express`
-5. `npm install --save body-parser`
-6. ~~`npm install --save-dev @types/node`~~
-7. ~~`npm install --save-dev @types/express`~~
+5. ~~`npm install --save body-parser`~~ (Express 4.16+ versions have re-added the BodyParser again!)
+6. `npm install --save-dev @types/node`
+7. `npm install --save-dev @types/express`
 8. ~~`npm install --save-dev @types/body-parser`~~
-9. ~~In `tsconfig.json`:~~
+9. In `tsconfig.json`:
     * `"rootDir": "./src"`
-    * `"outDir": "./dist"`
+    * `"outDir": "./dist"` (also change the package.json scripts)
     * `"moduleResolution": "node"`
 10. `npm install --save-dev nodemon`
 
@@ -21,8 +21,10 @@
 13. UPDATE: AS IT REDUCE THE DEVELOPMENT SPEED, I HAVE CHANGED THE WHOLE BACKEND CODE TO NORMAL NODEJS (JAVASCRIPT), BUT IF YOU NEED YOU CAN USE ABOVE STEPS TO HAVE NODEJS + EXPRESSJS + TS
 
 14. `npm install @aws-sdk/client-s3`
-15. `npm install --save-dev dotenv`
-16. `npm i oracledb` Orcale SODA
+15. `npm install --save-dev dotenv` (Put it in the NPM RUN script and NOT on the code otherwise Heroku yells that the dependency is not found as it is a Dev dep package!)
+16. ~~`npm i oracledb` Orcale SODA~~
+
+17. UPDATE: I will go back to TS for some parts... (because it can help and save time!!)
 
 ## Run
 1. ~~`tsc --watch`~~
