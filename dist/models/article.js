@@ -6,7 +6,7 @@ class Article {
     constructor(props) {
         this.title = props.title;
         this.body = props.body;
-        this.imageName = props.imageName;
+        this.imageName = props.imageName || undefined;
         this.tags = props.tags;
     }
     save() {

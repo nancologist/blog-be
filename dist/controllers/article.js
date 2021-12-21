@@ -17,12 +17,17 @@ const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
 const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const imgFile = req.file;
     const { articleTitle, articleBody } = req.body;
-    const imageName = imgFile.originalname;
+    let imgFile;
+    let imageName = undefined;
+    let s3Res;
     try {
-        const s3Res = yield aws_s3_1.default.saveFile(imgFile);
-        fs_1.default.unlinkSync(imgFile.path);
+        if (req.file) {
+            imgFile = req.file;
+            imageName = imgFile.originalname;
+            s3Res = yield aws_s3_1.default.saveFile(imgFile);
+            fs_1.default.unlinkSync(imgFile.path);
+        }
         const article = new article_1.default({
             title: articleTitle,
             body: articleBody,
@@ -33,7 +38,7 @@ const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             code: 'POSTED',
             msg: {
                 db: `Document inserted with _id: ${dbRes.insertedId}`,
-                s3: `Image uploaded with ETag: ${s3Res.ETag}`
+                s3: s3Res ? `Image uploaded with ETag: ${s3Res.ETag}` : 'NO_IMAGE'
             }
         });
     }

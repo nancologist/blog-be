@@ -4,13 +4,13 @@ const collectionName = 'articles'
 class Article {
   title: string;
   body: string;
-  imageName?: string
+  imageName?: string;
   tags?: string[]
 
   constructor(props: Props) {
     this.title = props.title
     this.body = props.body
-    this.imageName = props.imageName
+    this.imageName = props.imageName || undefined
     this.tags = props.tags
   }
 
