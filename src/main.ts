@@ -1,10 +1,10 @@
 import express, { Application, Request, Response } from 'express'
+import { connectDb } from './storage/db'
 
 const app: Application = express()
 
 const { allowCors } = require('./middleware');
 const articleRoutes = require('./routes/article');
-const { connectDb } = require('./storage/db');
 
 app.use(allowCors);
 

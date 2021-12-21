@@ -15,11 +15,12 @@ const { MONGODB_USER, MONGODB_PWD, MONGODB_DB } = process.env;
 let _db;
 const connString = `mongodb+srv://${MONGODB_USER}:${MONGODB_PWD}@cluster0.4khrn.mongodb.net/${MONGODB_DB}?retryWrites=true&w=majority`;
 const client = new mongodb_1.MongoClient(connString);
-const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
+const connectDb = (callback) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dbClient = yield client.connect();
         console.log('MongoDB client is connected.');
         _db = dbClient.db();
+        callback();
     }
     catch (err) {
         console.error(err);
