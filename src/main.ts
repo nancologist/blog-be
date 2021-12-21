@@ -20,6 +20,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/article', articleRoutes)
 
+// TODO: Add global error catcher on "app"
+
 const PORT = process.env.PORT;
 
 connectDb(() => {

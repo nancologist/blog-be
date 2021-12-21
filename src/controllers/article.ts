@@ -47,7 +47,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
 export const getArticles: RequestHandler = async (req: Request, res: Response) => {
   try {
     const articles = await Article.getAll()
-    console.log(articles);
+    res.json(articles)
   } catch (err) {
     console.error(err);
   }
