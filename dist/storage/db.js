@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDb = exports.connectDb = void 0;
+exports.getCollection = exports.getDb = exports.connectDb = void 0;
 const mongodb_1 = require("mongodb");
 const { MONGODB_USER, MONGODB_PWD, MONGODB_DB } = process.env;
 let _db;
@@ -34,3 +34,7 @@ const getDb = () => {
     throw 'No database found!';
 };
 exports.getDb = getDb;
+const getCollection = (name) => {
+    return (0, exports.getDb)().collection(name);
+};
+exports.getCollection = getCollection;

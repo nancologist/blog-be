@@ -10,12 +10,10 @@ class Article {
         this.tags = props.tags;
     }
     save() {
-        const db = (0, db_1.getDb)();
-        return db.collection(collName).insertOne(this);
+        return (0, db_1.getCollection)(collName).insertOne(this);
     }
     static getAll() {
-        const db = (0, db_1.getDb)();
-        return db.collection(collName).find().toArray();
+        return (0, db_1.getCollection)(collName).find().toArray();
     }
 }
 exports.default = Article;

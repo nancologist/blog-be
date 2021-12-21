@@ -1,6 +1,4 @@
-import { Db } from 'mongodb';
-
-import { getDb } from '../storage/db';
+import { getCollection } from '../storage/db';
 const collName = 'articles'
 
 class Article {
@@ -17,15 +15,13 @@ class Article {
   }
 
   save() {
-    const db = getDb()
-
-    return db.collection(collName).insertOne(this)
+    return getCollection(collName).insertOne(this)
   }
 
   static getAll() {
-    const db = getDb()
-    return db.collection(collName).find().toArray()
+    return getCollection(collName).find().toArray()
   }
+
 }
 
 type Props = {

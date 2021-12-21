@@ -1,4 +1,4 @@
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient, Db, Collection } from 'mongodb';
 
 const { MONGODB_USER, MONGODB_PWD, MONGODB_DB } = process.env
 
@@ -25,3 +25,7 @@ export const getDb = () => {
   }
   throw 'No database found!'
 };
+
+export const getCollection: (str: string) => Collection = (name: string) => {
+  return getDb().collection(name)
+}
