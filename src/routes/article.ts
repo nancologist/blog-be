@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import multer from 'multer'
 // const controller = require('../controllers/article');
-import * as controller from '../controllers/article'
+import * as ctrl from '../controllers/article'
 
 const upload = multer({ dest: 'src/uploads/' });
 
 const router = Router()
 
-router.post('/', upload.single('articleImage'), controller.postArticle)
+router.post('/', upload.single('articleImage'), ctrl.postArticle)
 
-// router.post('/post-image', upload.single('myImage'), controller.uploadImage);
+router.get('/all', ctrl.getArticles)
 
 module.exports = router;

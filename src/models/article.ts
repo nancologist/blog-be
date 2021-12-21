@@ -1,5 +1,7 @@
-const { getDb } = require('../storage/db')
-const collectionName = 'articles'
+import { Db } from 'mongodb';
+
+import { getDb } from '../storage/db';
+const collName = 'articles'
 
 class Article {
   title: string;
@@ -17,7 +19,12 @@ class Article {
   save() {
     const db = getDb()
 
-    return db.collection(collectionName).insertOne(this)
+    return db.collection(collName).insertOne(this)
+  }
+
+  static getAll() {
+    const db = getDb()
+    return db.collection(collName).find().toArray()
   }
 }
 

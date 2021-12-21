@@ -19,6 +19,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
       fs.unlinkSync(imgFile.path)
     }
 
+    // TODO: Store creation date
     const article = new Article({
       title: articleTitle,
       body: articleBody,
@@ -40,5 +41,14 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
       code: 'FAILED',
       err
     })
+  }
+}
+
+export const getArticles: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const articles = await Article.getAll()
+    console.log(articles);
+  } catch (err) {
+    console.error(err);
   }
 }

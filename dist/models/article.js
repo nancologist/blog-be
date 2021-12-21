@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { getDb } = require('../storage/db');
-const collectionName = 'articles';
+const db_1 = require("../storage/db");
+const collName = 'articles';
 class Article {
     constructor(props) {
         this.title = props.title;
@@ -10,8 +10,12 @@ class Article {
         this.tags = props.tags;
     }
     save() {
-        const db = getDb();
-        return db.collection(collectionName).insertOne(this);
+        const db = (0, db_1.getDb)();
+        return db.collection(collName).insertOne(this);
+    }
+    static getAll() {
+        const db = (0, db_1.getDb)();
+        return db.collection(collName).find().toArray();
     }
 }
 exports.default = Article;
