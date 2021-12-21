@@ -27,6 +27,7 @@
 17. UPDATE: I will go back to TS for some parts... (because it can help and save time!!)
 
 18. `npm install --save-dev @types/multer`
+19.
 
 ## Run
 1. ~~`tsc --watch`~~

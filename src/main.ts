@@ -15,6 +15,7 @@ app.get('/', (req: Request, res: Response) => {
   res.json({
     message: 'Welcome to BLOG API!'
   })
+  return
 })
 
 app.use('/article', articleRoutes)
