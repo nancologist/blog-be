@@ -1,7 +1,11 @@
-const router = require('express').Router();
-const multer = require('multer');
+import { Router } from 'express'
+import multer from 'multer'
+// const controller = require('../controllers/article');
+import * as controller from '../controllers/article'
+
 const upload = multer({ dest: 'src/uploads/' });
-const controller = require('../controllers/article');
+
+const router = Router()
 
 router.post('/', upload.single('articleImage'), controller.postArticle)
 
