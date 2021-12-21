@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { getDb } = require('../storage/mongodb');
+const { getDb } = require('../storage/db');
 const collectionName = 'articles';
 class Article {
     constructor(props) {

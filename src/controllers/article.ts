@@ -1,11 +1,12 @@
 import fs from 'fs'
 import { Request, Response, RequestHandler } from 'express'
 
+import { File } from '../types'
 import s3 from '../storage/aws-s3'
 import Article from '../models/article'
 
 export const postArticle: RequestHandler = async (req: Request, res: Response) => {
-  const imgFile = <Express.Multer.File> req.file
+  const imgFile = <File> req.file
   const { articleTitle, articleBody } = req.body
   const imageName = imgFile.originalname
 

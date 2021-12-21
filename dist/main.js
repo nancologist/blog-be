@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const { allowCors } = require('./middleware');
 const articleRoutes = require('./routes/article');
-const { connectDb } = require('./storage/mongodb');
+const { connectDb } = require('./storage/db');
 app.use(allowCors);
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));

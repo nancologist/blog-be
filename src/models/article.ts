@@ -1,4 +1,4 @@
-const { getDb } = require('../storage/mongodb')
+const { getDb } = require('../storage/db')
 const collectionName = 'articles'
 
 class Article {
