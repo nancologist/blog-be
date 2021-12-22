@@ -15,5 +15,8 @@ class Article {
     static getAll() {
         return (0, db_1.getCollection)(collName).find().toArray();
     }
+    static deleteAll() {
+        return (0, db_1.getCollection)(collName).deleteMany({});
+    }
 }
 exports.default = Article;

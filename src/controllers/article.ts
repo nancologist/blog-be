@@ -14,7 +14,8 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
   try {
     if (req.file) {
       imgFile = <File> req.file
-      imageName = imgFile.originalname
+      imageName = Math.floor(Math.random() * 1000) + '_' + imgFile.originalname
+      imgFile.originalname = imageName
       s3Res = await s3.saveFile(imgFile)
       fs.unlinkSync(imgFile.path)
     }
@@ -42,7 +43,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
       err
     })
   }
-}
+};
 
 export const getArticles: RequestHandler = async (req: Request, res: Response) => {
   try {
@@ -51,4 +52,18 @@ export const getArticles: RequestHandler = async (req: Request, res: Response) =
   } catch (err) {
     console.error(err);
   }
-}
+};
+
+// TODO: Comment out this handler before MVP release
+export const deleteAllArticles: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const dbRes = await Article.deleteAll();
+    res.json({
+      code: 'ALL_DELETED',
+      msg: `Total number of ${dbRes.deletedCount} articles have been deleted.`
+    })
+  } catch (err) {
+    console.error(err);
+    throw err
+  }
+};

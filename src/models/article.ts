@@ -22,6 +22,9 @@ class Article {
     return getCollection(collName).find().toArray()
   }
 
+  static deleteAll() {
+    return getCollection(collName).deleteMany({})
+  }
 }
 
 type Props = {

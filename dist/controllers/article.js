@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getArticles = exports.postArticle = void 0;
+exports.deleteAllArticles = exports.getArticles = exports.postArticle = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
@@ -24,7 +24,8 @@ const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         if (req.file) {
             imgFile = req.file;
-            imageName = imgFile.originalname;
+            imageName = Math.floor(Math.random() * 1000) + '_' + imgFile.originalname;
+            imgFile.originalname = imageName;
             s3Res = yield aws_s3_1.default.saveFile(imgFile);
             fs_1.default.unlinkSync(imgFile.path);
         }
@@ -62,3 +63,18 @@ const getArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getArticles = getArticles;
+// TODO: Comment out this handler before MVP release
+const deleteAllArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const dbRes = yield article_1.default.deleteAll();
+        res.json({
+            code: 'ALL_DELETED',
+            msg: `Total number of ${dbRes.deletedCount} articles have been deleted.`
+        });
+    }
+    catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
+exports.deleteAllArticles = deleteAllArticles;

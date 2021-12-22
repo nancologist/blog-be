@@ -30,4 +30,5 @@ const upload = (0, multer_1.default)({ dest: 'src/uploads/' });
 const router = (0, express_1.Router)();
 router.post('/', upload.single('articleImage'), ctrl.postArticle);
 router.get('/all', ctrl.getArticles);
+router.delete('/all', ctrl.deleteAllArticles);
 module.exports = router;
