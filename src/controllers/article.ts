@@ -29,6 +29,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
 
     res.json({
       code: 'POSTED',
+      id: dbRes.insertedId,
       msg: {
         db: `Document inserted with _id: ${dbRes.insertedId}`,
         s3: s3Res ? `Image uploaded with ETag: ${s3Res.ETag}` : 'NO_IMAGE'
