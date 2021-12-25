@@ -24,11 +24,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
-// const controller = require('../controllers/article');
 const ctrl = __importStar(require("../controllers/article"));
 const upload = (0, multer_1.default)({ dest: 'src/uploads/' });
 const router = (0, express_1.Router)();
 router.post('/', upload.single('articleImage'), ctrl.postArticle);
 router.get('/all', ctrl.getArticles);
+router.get('/:articleId', ctrl.getArticle);
 router.delete('/all', ctrl.deleteAllArticles);
 module.exports = router;

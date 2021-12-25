@@ -11,6 +11,8 @@ router.post('/', upload.single('articleImage'), ctrl.postArticle)
 
 router.get('/all', ctrl.getArticles)
 
+router.get('/:articleId', ctrl.getArticle)
+
 router.delete('/all', ctrl.deleteAllArticles)
 
 module.exports = router;

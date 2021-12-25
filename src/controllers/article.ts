@@ -54,6 +54,15 @@ export const getArticles: RequestHandler = async (req: Request, res: Response) =
   }
 };
 
+export const getArticle: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const article = await Article.getSingle(req.params.articleId)
+    res.json(article)
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // TODO: Comment out this handler before MVP release
 export const deleteAllArticles: RequestHandler = async (req: Request, res: Response) => {
   try {

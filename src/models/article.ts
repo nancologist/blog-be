@@ -1,4 +1,6 @@
+import { ObjectId } from 'mongodb'
 import { getCollection } from '../storage/db';
+
 const collName = 'articles'
 
 class Article {
@@ -24,6 +26,10 @@ class Article {
 
   static deleteAll() {
     return getCollection(collName).deleteMany({})
+  }
+
+  static getSingle(id: any) {
+    return getCollection(collName).findOne(new ObjectId(id))
   }
 }
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAllArticles = exports.getArticles = exports.postArticle = void 0;
+exports.deleteAllArticles = exports.getArticle = exports.getArticles = exports.postArticle = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
@@ -29,7 +29,6 @@ const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             s3Res = yield aws_s3_1.default.saveFile(imgFile);
             fs_1.default.unlinkSync(imgFile.path);
         }
-        // TODO: Store creation date
         const article = new article_1.default({
             title: articleTitle,
             body: articleBody,
@@ -63,7 +62,16 @@ const getArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getArticles = getArticles;
-// TODO: Comment out this handler before MVP release
+const getArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const article = yield article_1.default.getSingle(req.params.articleId);
+        res.json(article);
+    }
+    catch (err) {
+        console.error(err);
+    }
+});
+exports.getArticle = getArticle;
 const deleteAllArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dbRes = yield article_1.default.deleteAll();
