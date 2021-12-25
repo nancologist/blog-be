@@ -8,12 +8,14 @@ class Article {
   body: string;
   imageName?: string;
   tags?: string[]
+  createdAt: number;
 
   constructor(props: Props) {
     this.title = props.title
     this.body = props.body
     this.imageName = props.imageName || undefined
     this.tags = props.tags
+    this.createdAt = Date.now()
   }
 
   save() {

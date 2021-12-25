@@ -9,6 +9,7 @@ class Article {
         this.body = props.body;
         this.imageName = props.imageName || undefined;
         this.tags = props.tags;
+        this.createdAt = Date.now();
     }
     save() {
         return (0, db_1.getCollection)(collName).insertOne(this);
