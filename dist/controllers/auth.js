@@ -34,5 +34,30 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.signUp = signUp;
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_1.default.getSingle(req.body.email);
+        let failed = false;
+        if (!user) {
+            failed = true;
+            console.error('No User with this email.');
+        }
+        else {
+            const pwdOk = yield bcrypt_1.default.compare(req.body.pwd, user.pwd);
+            if (!pwdOk) {
+                failed = true;
+                console.error('Wrong password');
+            }
+            else {
+            }
+        }
+        if (failed) {
+            res.json({
+                err: 'Wrong credentials.'
+            });
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
 });
 exports.signIn = signIn;

@@ -16,9 +16,9 @@ class User {
     return getCollection(collName).insertOne(this)
   }
 
-  // static getSingle(id: any) {
-  //   return getCollection(collName).findOne(new ObjectId(id))
-  // }
+  static async getSingle(email: string) {
+    return getCollection(collName).findOne({ email: email })
+  }
 }
 
 type Props = {
