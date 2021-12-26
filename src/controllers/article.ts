@@ -1,9 +1,9 @@
-import fs from 'fs'
-import { Request, Response, RequestHandler } from 'express'
+import fs from 'fs';
+import { Request, Response, RequestHandler } from 'express';
 
-import { File } from '../types'
-import s3 from '../storage/aws-s3'
-import Article from '../models/article'
+import { File } from '../types';
+import s3 from '../storage/aws-s3';
+import Article from '../models/article';
 
 export const postArticle: RequestHandler = async (req: Request, res: Response) => {
   const { articleTitle, articleBody } = req.body
@@ -48,7 +48,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
 export const getArticles: RequestHandler = async (req: Request, res: Response) => {
   try {
     const articles = await Article.getAll()
-    res.json(articles)
+    res.json(articles.reverse())
   } catch (err) {
     console.error(err);
   }

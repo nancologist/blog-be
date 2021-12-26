@@ -1,10 +1,9 @@
-import express, { Application, Request, Response } from 'express'
-import { connectDb } from './storage/db'
+import express, { Application, Request, Response } from 'express';
+import { connectDb } from './storage/db';
+import { allowCors } from './middleware';
+import routes from './routes';
 
 const app: Application = express()
-
-const { allowCors } = require('./middleware');
-const articleRoutes = require('./routes/article');
 
 app.use(allowCors);
 
@@ -18,7 +17,8 @@ app.get('/', (req: Request, res: Response) => {
   return
 })
 
-app.use('/article', articleRoutes)
+app.use('/article', routes.article)
+app.use('/auth', routes.auth)
 
 // TODO: Add global error catcher on "app"
 

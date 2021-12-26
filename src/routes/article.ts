@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import multer from 'multer'
-// const controller = require('../controllers/article');
 import * as ctrl from '../controllers/article'
 
 const upload = multer({ dest: 'src/uploads/' });
@@ -15,4 +14,4 @@ router.get('/:articleId', ctrl.getArticle)
 
 router.delete('/all', ctrl.deleteAllArticles)
 
-module.exports = router;
+export default router;

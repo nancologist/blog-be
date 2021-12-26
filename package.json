@@ -13,12 +13,14 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.44.0",
     "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "form-data": "^4.0.0",
     "mongodb": "^4.2.2",
     "multer": "^1.4.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.1",

@@ -56,7 +56,7 @@ exports.postArticle = postArticle;
 const getArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const articles = yield article_1.default.getAll();
-        res.json(articles);
+        res.json(articles.reverse());
     }
     catch (err) {
         console.error(err);
