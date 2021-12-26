@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb'
+import { ObjectId, WithId } from 'mongodb'
 import { getCollection } from '../storage/db';
 
 const collName = 'users'
@@ -17,7 +17,7 @@ class User {
   }
 
   static async getSingle(email: string) {
-    return getCollection(collName).findOne({ email: email })
+    return getCollection(collName).findOne<WithId<User>>({ email: email })
   }
 }
 

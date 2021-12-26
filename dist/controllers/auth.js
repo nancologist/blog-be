@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signIn = exports.signUp = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = __importDefault(require("../models/user"));
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, pwd } = req.body;
@@ -48,6 +49,12 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 console.error('Wrong password');
             }
             else {
+                const token = jsonwebtoken_1.default.sign({
+                    email: user.email,
+                    userId: user._id.toString()
+                }, process.env.JWT_TOKEN, { expiresIn: '1h' });
+                res.json({ token: token, userId: user._id.toString() });
+                return;
             }
         }
         if (failed) {

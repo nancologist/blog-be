@@ -1,5 +1,6 @@
 import { Request, Response, RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import User from '../models/user';
 
@@ -23,7 +24,7 @@ export const signUp: RequestHandler = async (req: Request, res: Response) => {
 
 export const signIn: RequestHandler = async (req: Request, res: Response) => {
   try {
-    const user = await User.getSingle(req.body.email)
+    const user = await User.getSingle(req.body.email);
     let failed = false;
 
     if (!user) {
@@ -35,7 +36,18 @@ export const signIn: RequestHandler = async (req: Request, res: Response) => {
         failed = true;
         console.error('Wrong password');
       } else {
-        // Generate jwt
+        // Generate jwt ...
+        const token = jwt.sign(
+          {
+            email: user.email,
+            userId: user._id.toString()
+          },
+          process.env.JWT_TOKEN!,
+          { expiresIn: '1h' }
+        )
+
+        res.json({ token: token, userId: user._id.toString() });
+        return;
       }
     }
 

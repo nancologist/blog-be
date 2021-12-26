@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb'
+import { ObjectId, WithId } from 'mongodb'
 import { getCollection } from '../storage/db';
 
 const collName = 'articles'
@@ -31,7 +31,7 @@ class Article {
   }
 
   static getSingle(id: any) {
-    return getCollection(collName).findOne(new ObjectId(id))
+    return getCollection(collName).findOne<WithId<Article>>(new ObjectId(id))
   }
 }
 

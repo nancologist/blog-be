@@ -23,5 +23,5 @@ const express_1 = require("express");
 const ctrl = __importStar(require("../controllers/auth"));
 const router = (0, express_1.Router)();
 router.post('/signupuntr1vialendp0int', ctrl.signUp);
-router.post('/signin', ctrl.signIn);
+router.post('/s1gn1n', ctrl.signIn);
 exports.default = router;
