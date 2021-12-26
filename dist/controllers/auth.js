@@ -52,13 +52,14 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const token = jsonwebtoken_1.default.sign({
                     email: user.email,
                     userId: user._id.toString()
-                }, process.env.JWT_TOKEN, { expiresIn: '1h' });
+                }, process.env.JWT_KEY, { expiresIn: '1h' });
                 res.json({ token: token, userId: user._id.toString() });
                 return;
             }
         }
         if (failed) {
-            res.json({
+            res.status(401).json({
+                code: 'WRONG_CRED',
                 err: 'Wrong credentials.'
             });
         }

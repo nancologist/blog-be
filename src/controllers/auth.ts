@@ -1,7 +1,6 @@
 import { Request, Response, RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
 import User from '../models/user';
 
 export const signUp: RequestHandler = async (req: Request, res: Response) => {
@@ -42,7 +41,7 @@ export const signIn: RequestHandler = async (req: Request, res: Response) => {
             email: user.email,
             userId: user._id.toString()
           },
-          process.env.JWT_TOKEN!,
+          process.env.JWT_KEY!,
           { expiresIn: '1h' }
         )
 
@@ -52,7 +51,8 @@ export const signIn: RequestHandler = async (req: Request, res: Response) => {
     }
 
     if (failed) {
-      res.json({
+      res.status(401).json({
+        code: 'WRONG_CRED',
         err: 'Wrong credentials.'
       })
     }

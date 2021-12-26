@@ -18,7 +18,7 @@ export const authenticateToken = (req: any, res: Response, next: NextFunction) =
 
     let decodedToken;
     try {
-        decodedToken = <JwtPayload>jwt.verify(token, process.env.JWT_TOKEN!)
+        decodedToken = <JwtPayload>jwt.verify(token, process.env.JWT_KEY!)
     } catch (err) {
         console.error('Error');
         return;

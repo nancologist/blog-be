@@ -21,7 +21,7 @@ const authenticateToken = (req, res, next) => {
     const token = authHeader.split(' ')[1];
     let decodedToken;
     try {
-        decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_TOKEN);
+        decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
     }
     catch (err) {
         console.error('Error');
