@@ -20,13 +20,21 @@ export const authenticateToken = (req: any, res: Response, next: NextFunction) =
     try {
         decodedToken = <JwtPayload>jwt.verify(token, process.env.JWT_KEY!)
     } catch (err) {
-        console.error('Error');
+        console.error('Token can not be verified');
+        res.json({
+          code: 'TOKEN_NOT_VERIFIED',
+          err: 'Token can not be verified'
+        });
         return;
     }
 
     const invalidToken = !decodedToken;
     if (invalidToken) {
       console.error('Not Authenticated!');
+      res.json({
+        code: 'TOKEN_INVALID',
+        err: 'Token is invalid'
+      });
       return;
     }
 
