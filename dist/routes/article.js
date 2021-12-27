@@ -31,5 +31,5 @@ const router = (0, express_1.Router)();
 router.post('/', middleware_1.authenticateToken, upload.single('articleImage'), ctrl.postArticle);
 router.get('/all', ctrl.getArticles);
 router.get('/:articleId', ctrl.getArticle);
-router.delete('/all', middleware_1.authenticateToken, ctrl.deleteAllArticles);
+router.delete('/all', ctrl.deleteAllArticles);
 exports.default = router;

@@ -14,6 +14,7 @@ router.get('/all', ctrl.getArticles)
 
 router.get('/:articleId', ctrl.getArticle)
 
-router.delete('/all', authenticateToken, ctrl.deleteAllArticles)
+// TODO: Deactivate this endpoint when you read MVP!
+router.delete('/all', ctrl.deleteAllArticles)
 
 export default router;

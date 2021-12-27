@@ -12,6 +12,9 @@ export const authenticateToken = (req: any, res: Response, next: NextFunction) =
   const authHeader = req.get('Authorization');
     if (!authHeader) {
       console.error('Not Authenticated!');
+      res.json({
+        err: 'Auth Not Found In Header!'
+      })
       return;
     }
     const token = authHeader.split(' ')[1]; // arr[0] = "Bearer"
