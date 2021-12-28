@@ -14,8 +14,7 @@ router.get('/all', ctrl.getArticles);
 
 router.get('/:articleId', ctrl.getArticle);
 
-// TODO: Deactivate this endpoint when you read MVP!
-router.delete('/all', ctrl.deleteAllArticles);
+// router.delete('/all', validateToken, ctrl.deleteAllArticles);
 
 router.delete('/:articleId', validateToken, ctrl.deleteArticle);
 

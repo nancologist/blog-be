@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteArticle = exports.deleteAllArticles = exports.getArticle = exports.getArticles = exports.postArticle = void 0;
+exports.deleteArticle = exports.getArticle = exports.getArticles = exports.postArticle = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
@@ -73,20 +73,6 @@ const getArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getArticle = getArticle;
-const deleteAllArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const dbRes = yield article_1.default.deleteAll();
-        res.json({
-            code: 'ALL_DELETED',
-            msg: `Total number of ${dbRes.deletedCount} articles have been deleted.`
-        });
-    }
-    catch (err) {
-        console.error(err);
-        throw err;
-    }
-});
-exports.deleteAllArticles = deleteAllArticles;
 const deleteArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dbRes = yield article_1.default.deleteSingle(req.params.articleId);

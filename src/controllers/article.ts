@@ -63,20 +63,6 @@ export const getArticle: RequestHandler = async (req: Request, res: Response) =>
   }
 };
 
-// TODO: Comment out this handler before MVP release
-export const deleteAllArticles: RequestHandler = async (req: Request, res: Response) => {
-  try {
-    const dbRes = await Article.deleteAll();
-    res.json({
-      code: 'ALL_DELETED',
-      msg: `Total number of ${dbRes.deletedCount} articles have been deleted.`
-    })
-  } catch (err) {
-    console.error(err);
-    throw err
-  }
-};
-
 export const deleteArticle: RequestHandler = async (req, res) => {
   try {
     const dbRes = await Article.deleteSingle(req.params.articleId)
@@ -92,3 +78,16 @@ export const deleteArticle: RequestHandler = async (req, res) => {
 
   return;
 };
+
+// export const deleteAllArticles: RequestHandler = async (req: Request, res: Response) => {
+//   try {
+//     const dbRes = await Article.deleteAll();
+//     res.json({
+//       code: 'ALL_DELETED',
+//       msg: `Total number of ${dbRes.deletedCount} articles have been deleted.`
+//     })
+//   } catch (err) {
+//     console.error(err);
+//     throw err
+//   }
+// };
