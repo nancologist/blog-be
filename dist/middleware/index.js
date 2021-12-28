@@ -29,11 +29,7 @@ const validateToken = (req, res, next) => {
     }
     catch (err) {
         console.error('Token can not be verified');
-        res.json({
-            code: 'TOKEN_NOT_VERIFIED',
-            err: 'Token can not be verified'
-        });
-        return;
+        throw 'Token can not be verified';
     }
     const invalidToken = !decodedToken;
     if (invalidToken) {

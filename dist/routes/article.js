@@ -32,4 +32,5 @@ router.post('/', middleware_1.validateToken, upload.single('articleImage'), ctrl
 router.get('/all', ctrl.getArticles);
 router.get('/:articleId', ctrl.getArticle);
 router.delete('/all', ctrl.deleteAllArticles);
+router.delete('/:articleId', middleware_1.validateToken, ctrl.deleteArticle);
 exports.default = router;

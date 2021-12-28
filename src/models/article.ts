@@ -30,8 +30,12 @@ class Article {
     return getCollection(collName).deleteMany({})
   }
 
-  static getSingle(id: any) {
+  static getSingle(id: string) {
     return getCollection(collName).findOne<WithId<Article>>(new ObjectId(id))
+  }
+
+  static deleteSingle(id: string) {
+    return getCollection(collName).deleteOne({ _id: new ObjectId(id) })
   }
 }
 

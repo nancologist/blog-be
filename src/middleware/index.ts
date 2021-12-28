@@ -25,11 +25,12 @@ export const validateToken = (req: any, res: Response, next: NextFunction) => {
         decodedToken = <JwtPayload>jwt.verify(token, process.env.JWT_KEY!)
     } catch (err) {
         console.error('Token can not be verified');
-        res.json({
-          code: 'TOKEN_NOT_VERIFIED',
-          err: 'Token can not be verified'
-        });
-        return;
+        throw 'Token can not be verified' // FIXME: it throws 500 error
+        // res.json({
+        //   code: 'TOKEN_NOT_VERIFIED',
+        //   err: 'Token can not be verified'
+        // });
+        // return;
     }
 
     const invalidToken = !decodedToken;

@@ -76,3 +76,19 @@ export const deleteAllArticles: RequestHandler = async (req: Request, res: Respo
     throw err
   }
 };
+
+export const deleteArticle: RequestHandler = async (req, res) => {
+  try {
+    const dbRes = await Article.deleteSingle(req.params.articleId)
+    if (dbRes.deletedCount === 1) {
+      res.json({
+        code: 'ARTICLE_DELETED',
+        dbRes
+      })
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  return;
+};

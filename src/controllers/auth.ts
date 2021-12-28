@@ -45,7 +45,7 @@ export const signIn: RequestHandler = async (req, res) => {
           { expiresIn: '1h' }
         )
 
-        res.json({ token: token, userId: user._id.toString() });
+        res.json({ code: 'SIGNED_IN', token: token, userId: user._id.toString() });
         return;
       }
     }

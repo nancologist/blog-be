@@ -53,7 +53,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     email: user.email,
                     userId: user._id.toString()
                 }, process.env.JWT_KEY, { expiresIn: '1h' });
-                res.json({ token: token, userId: user._id.toString() });
+                res.json({ code: 'SIGNED_IN', token: token, userId: user._id.toString() });
                 return;
             }
         }
