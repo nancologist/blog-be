@@ -28,7 +28,7 @@ const ctrl = __importStar(require("../controllers/article"));
 const middleware_1 = require("../middleware");
 const upload = (0, multer_1.default)({ dest: 'src/uploads/' });
 const router = (0, express_1.Router)();
-router.post('/', middleware_1.authenticateToken, upload.single('articleImage'), ctrl.postArticle);
+router.post('/', middleware_1.validateToken, upload.single('articleImage'), ctrl.postArticle);
 router.get('/all', ctrl.getArticles);
 router.get('/:articleId', ctrl.getArticle);
 router.delete('/all', ctrl.deleteAllArticles);

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 
-export const signUp: RequestHandler = async (req: Request, res: Response) => {
+export const signUp: RequestHandler = async (req, res) => {
   const { email, pwd } = req.body;
 
   try {
@@ -21,7 +21,7 @@ export const signUp: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const signIn: RequestHandler = async (req: Request, res: Response) => {
+export const signIn: RequestHandler = async (req, res) => {
   try {
     const user = await User.getSingle(req.body.email);
     let failed = false;
@@ -59,4 +59,11 @@ export const signIn: RequestHandler = async (req: Request, res: Response) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const checkToken: RequestHandler = (req, res) => {
+  // if request arrives this RequestHandler , the token is verified, so:
+  res.json({
+    code: 'TOKEN_VERIFIED'
+  });
 };

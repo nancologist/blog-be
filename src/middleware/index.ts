@@ -8,11 +8,12 @@ export const allowCors = (req: Request, res: Response, next: NextFunction) => {
   next();
 }
 
-export const authenticateToken = (req: any, res: Response, next: NextFunction) => {
+export const validateToken = (req: any, res: Response, next: NextFunction) => {
   const authHeader = req.get('Authorization');
     if (!authHeader) {
       console.error('Not Authenticated!');
       res.json({
+        code: 'HEADER_NOT_FOUND',
         err: 'Auth Not Found In Header!'
       })
       return;

@@ -21,7 +21,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const ctrl = __importStar(require("../controllers/auth"));
+const middleware_1 = require("../middleware");
 const router = (0, express_1.Router)();
 router.post('/signupuntr1vialendp0int', ctrl.signUp);
 router.post('/s1gn1n', ctrl.signIn);
+router.get('/check-token', middleware_1.validateToken, ctrl.checkToken);
 exports.default = router;
