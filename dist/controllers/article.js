@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteArticle = exports.getArticle = exports.getArticles = exports.postArticle = void 0;
+exports.deleteArticle = exports.getArticle = exports.getArticles = exports.updateArticle = exports.postArticle = void 0;
 const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
@@ -53,6 +53,23 @@ const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.postArticle = postArticle;
+const updateArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { article: articleProps } = req.body;
+    let dbRes = {};
+    try {
+        const updatingArticle = new article_1.default(articleProps);
+        dbRes = yield updatingArticle.save();
+    }
+    catch (err) {
+        console.error(err);
+    }
+    res.json({
+        code: 'UPDATED',
+        dbRes
+    });
+    return;
+});
+exports.updateArticle = updateArticle;
 const getArticles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const articles = yield article_1.default.getAll();

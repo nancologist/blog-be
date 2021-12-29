@@ -4,6 +4,7 @@ import { Request, Response, RequestHandler } from 'express';
 import { File } from '../types';
 import s3 from '../storage/aws-s3';
 import Article from '../models/article';
+import { InsertOneResult } from 'mongodb';
 
 export const postArticle: RequestHandler = async (req: Request, res: Response) => {
   const { articleTitle, articleBody } = req.body
@@ -25,7 +26,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
       body: articleBody,
       imageName
     })
-    const dbRes = await article.save()
+    const dbRes = await article.save() as InsertOneResult
 
     res.json({
       code: 'POSTED',
@@ -43,6 +44,25 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
       err
     })
   }
+};
+
+// TODO: Edit Picture too
+export const updateArticle: RequestHandler = async (req, res) => {
+  const { article: articleProps } = req.body
+
+  let dbRes = {};
+  try {
+    const updatingArticle = new Article(articleProps);
+    dbRes = await updatingArticle.save()
+  } catch (err) {
+    console.error(err);
+  }
+
+  res.json({
+    code: 'UPDATED',
+    dbRes
+  })
+  return;
 };
 
 export const getArticles: RequestHandler = async (req: Request, res: Response) => {

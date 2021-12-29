@@ -5,6 +5,7 @@ const db_1 = require("../storage/db");
 const collName = 'articles';
 class Article {
     constructor(props) {
+        this._id = props._id ? new mongodb_1.ObjectId(props._id) : undefined;
         this.title = props.title;
         this.body = props.body;
         this.imageName = props.imageName || undefined;
@@ -12,7 +13,13 @@ class Article {
         this.createdAt = Date.now();
     }
     save() {
-        return (0, db_1.getCollection)(collName).insertOne(this);
+        const collection = (0, db_1.getCollection)(collName);
+        if (this._id) {
+            return collection.updateOne({ _id: this._id }, { $set: this });
+        }
+        else {
+            return collection.insertOne(this);
+        }
     }
     static getAll() {
         return (0, db_1.getCollection)(collName).find().toArray();

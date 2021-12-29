@@ -4,6 +4,7 @@ import { getCollection } from '../storage/db';
 const collName = 'articles'
 
 class Article {
+  _id: ObjectId | undefined;
   title: string;
   body: string;
   imageName?: string;
@@ -11,6 +12,7 @@ class Article {
   createdAt: number;
 
   constructor(props: Props) {
+    this._id = props._id ? new ObjectId(props._id) : undefined;
     this.title = props.title
     this.body = props.body
     this.imageName = props.imageName || undefined
@@ -19,7 +21,13 @@ class Article {
   }
 
   save() {
-    return getCollection(collName).insertOne(this)
+    const collection = getCollection(collName);
+
+    if (this._id) {
+      return collection.updateOne({ _id: this._id }, { $set: this })
+    } else {
+      return collection.insertOne(this);
+    }
   }
 
   static getAll() {
@@ -40,6 +48,7 @@ class Article {
 }
 
 type Props = {
+  _id?: string;
   title: string;
   body: string;
   imageName?: string;

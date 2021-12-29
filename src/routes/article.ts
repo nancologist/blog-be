@@ -10,6 +10,8 @@ const router = Router();
 
 router.post('/', validateToken, upload.single('articleImage'), ctrl.postArticle);
 
+router.put('/', validateToken, ctrl.updateArticle);
+
 router.get('/all', ctrl.getArticles);
 
 router.get('/:articleId', ctrl.getArticle);

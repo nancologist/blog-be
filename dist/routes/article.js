@@ -29,6 +29,7 @@ const middleware_1 = require("../middleware");
 const upload = (0, multer_1.default)({ dest: 'src/uploads/' });
 const router = (0, express_1.Router)();
 router.post('/', middleware_1.validateToken, upload.single('articleImage'), ctrl.postArticle);
+router.put('/', middleware_1.validateToken, ctrl.updateArticle);
 router.get('/all', ctrl.getArticles);
 router.get('/:articleId', ctrl.getArticle);
 router.delete('/:articleId', middleware_1.validateToken, ctrl.deleteArticle);
