@@ -28,8 +28,7 @@ const validateToken = (req, res, next) => {
         decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
     }
     catch (err) {
-        console.error('Token can not be verified');
-        throw 'Token can not be verified';
+        throw 'Token can not be verified.';
     }
     const invalidToken = !decodedToken;
     if (invalidToken) {

@@ -7,12 +7,19 @@ const fs_1 = __importDefault(require("fs"));
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3 = {
     saveFile: (file) => {
-        const command = new client_s3_1.PutObjectCommand({
+        const putCommand = new client_s3_1.PutObjectCommand({
             Bucket: 'nancologist-blog',
             Body: fs_1.default.createReadStream(file.path),
             Key: file.originalname
         });
-        return client.send(command);
+        return client.send(putCommand);
+    },
+    deleteFile: (fileName) => {
+        const delCommand = new client_s3_1.DeleteObjectCommand({
+            Bucket: 'nancologist-blog',
+            Key: fileName
+        });
+        return client.send(delCommand);
     }
 };
 const client = new client_s3_1.S3Client({

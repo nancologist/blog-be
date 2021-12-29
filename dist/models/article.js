@@ -24,7 +24,7 @@ class Article {
         return (0, db_1.getCollection)(collName).findOne(new mongodb_1.ObjectId(id));
     }
     static deleteSingle(id) {
-        return (0, db_1.getCollection)(collName).deleteOne({ _id: new mongodb_1.ObjectId(id) });
+        return (0, db_1.getCollection)(collName).findOneAndDelete({ _id: new mongodb_1.ObjectId(id) });
     }
 }
 exports.default = Article;

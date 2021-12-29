@@ -1,15 +1,23 @@
 import fs from 'fs'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand, DeleteObjectCommand, Delete } from '@aws-sdk/client-s3'
 import { File } from '../types'
 
 const s3 = {
   saveFile: (file: File) => {
-    const command = new PutObjectCommand({
+    const putCommand = new PutObjectCommand({
       Bucket: 'nancologist-blog',
       Body: fs.createReadStream(file.path),
       Key: file.originalname
     })
-    return client.send(command)
+    return client.send(putCommand)
+  },
+
+  deleteFile: (fileName: string) => {
+    const delCommand = new DeleteObjectCommand({
+      Bucket: 'nancologist-blog',
+      Key: fileName
+    });
+    return client.send(delCommand)
   }
 }
 

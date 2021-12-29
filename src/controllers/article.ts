@@ -65,18 +65,30 @@ export const getArticle: RequestHandler = async (req: Request, res: Response) =>
 
 export const deleteArticle: RequestHandler = async (req, res) => {
   try {
-    const dbRes = await Article.deleteSingle(req.params.articleId)
-    if (dbRes.deletedCount === 1) {
-      res.json({
-        code: 'ARTICLE_DELETED',
-        dbRes
-      })
+    let resCode: string[] = [];
+    const dbRes = await Article.deleteSingle(req.params.articleId);
+
+    if (dbRes.ok === 1) {
+      resCode = ['ARTICLE_DELETED']
+
+      const deletedArticle = dbRes.value as Article;
+      if (deletedArticle.imageName) {
+        const s3Res = await s3.deleteFile(deletedArticle.imageName)
+        
+        if (s3Res.$metadata.httpStatusCode === 204) {
+          resCode.push('FILE_DELETED');
+        }
+      }
     }
+    
+    res.json({
+      code: resCode,
+    })
+    return;
+
   } catch (err) {
     console.error(err);
   }
-
-  return;
 };
 
 // export const deleteAllArticles: RequestHandler = async (req: Request, res: Response) => {

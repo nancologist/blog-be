@@ -35,7 +35,7 @@ class Article {
   }
 
   static deleteSingle(id: string) {
-    return getCollection(collName).deleteOne({ _id: new ObjectId(id) })
+    return getCollection(collName).findOneAndDelete({ _id: new ObjectId(id) })
   }
 }
 

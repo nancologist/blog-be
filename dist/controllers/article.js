@@ -75,17 +75,25 @@ const getArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getArticle = getArticle;
 const deleteArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        let resCode = [];
         const dbRes = yield article_1.default.deleteSingle(req.params.articleId);
-        if (dbRes.deletedCount === 1) {
-            res.json({
-                code: 'ARTICLE_DELETED',
-                dbRes
-            });
+        if (dbRes.ok === 1) {
+            resCode = ['ARTICLE_DELETED'];
+            const deletedArticle = dbRes.value;
+            if (deletedArticle.imageName) {
+                const s3Res = yield aws_s3_1.default.deleteFile(deletedArticle.imageName);
+                if (s3Res.$metadata.httpStatusCode === 204) {
+                    resCode.push('FILE_DELETED');
+                }
+            }
         }
+        res.json({
+            code: resCode,
+        });
+        return;
     }
     catch (err) {
         console.error(err);
     }
-    return;
 });
 exports.deleteArticle = deleteArticle;
