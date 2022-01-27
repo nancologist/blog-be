@@ -32,7 +32,6 @@ const validateToken = (req, res, next) => {
     }
     const invalidToken = !decodedToken;
     if (invalidToken) {
-        console.error('Not Authenticated!');
         res.json({
             code: 'TOKEN_INVALID',
             err: 'Token is invalid'

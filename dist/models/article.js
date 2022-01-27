@@ -5,12 +5,17 @@ const db_1 = require("../storage/db");
 const collName = 'articles';
 class Article {
     constructor(props) {
-        this._id = props._id ? new mongodb_1.ObjectId(props._id) : undefined;
+        const isEditing = !!props._id;
+        if (isEditing) {
+            this._id = new mongodb_1.ObjectId(props._id);
+        }
+        else {
+            this.createdAt = Date.now();
+        }
         this.title = props.title;
         this.body = props.body;
         this.imageName = props.imageName || undefined;
         this.tags = props.tags;
-        this.createdAt = Date.now();
     }
     save() {
         const collection = (0, db_1.getCollection)(collName);

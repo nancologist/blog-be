@@ -4,20 +4,25 @@ import { getCollection } from '../storage/db';
 const collName = 'articles'
 
 class Article {
-  _id: ObjectId | undefined;
+  _id?: ObjectId;
   title: string;
   body: string;
   imageName?: string;
   tags?: string[]
-  createdAt: number;
+  createdAt?: number;
 
   constructor(props: Props) {
-    this._id = props._id ? new ObjectId(props._id) : undefined;
+    const isEditing = !!props._id;
+    if (isEditing) {
+      this._id = new ObjectId(props._id);
+    } else {
+      this.createdAt = Date.now();
+    }
+
     this.title = props.title
     this.body = props.body
     this.imageName = props.imageName || undefined
     this.tags = props.tags
-    this.createdAt = Date.now()
   }
 
   save() {
@@ -53,6 +58,7 @@ type Props = {
   body: string;
   imageName?: string;
   tags?: string[];
+  createdAt?: number;
 }
 
 export default Article;
