@@ -1,26 +1,23 @@
 import express, { Application, Request, Response } from 'express';
 import { connectDb } from './storage/db';
-import { allowCors } from './middleware';
+import { allowCors, catchError } from './middleware';
 import routes from './routes';
 
 const app: Application = express()
 
-app.use(allowCors);
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req: Request, res: Response) => {
-  res.json({
-    message: 'Welcome to BLOG API!'
+app
+  .use(allowCors)
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .get('/', (req: Request, res: Response) => {
+    res.json({
+      message: 'Welcome to BLOG API!'
+    })
+    return
   })
-  return
-})
-
-app.use('/article', routes.article)
-app.use('/auth', routes.auth)
-
-// TODO: Add global error catcher on "app"
+  .use('/article', routes.article)
+  .use('/auth', routes.auth)
+  .use(catchError)
 
 const PORT = process.env.PORT;
 

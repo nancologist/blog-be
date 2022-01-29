@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateToken = exports.allowCors = void 0;
+exports.validateToken = exports.catchError = exports.allowCors = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const allowCors = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
@@ -12,6 +12,18 @@ const allowCors = (req, res, next) => {
     next();
 };
 exports.allowCors = allowCors;
+const catchError = (err, req, res, next) => {
+    if (req.url === '/auth/check-token') {
+        return;
+    }
+    if (req.url.split('/')[1] === 'auth') {
+        res.status(401).json(err);
+        return;
+    }
+    res.status(500).json(err);
+    return;
+};
+exports.catchError = catchError;
 const validateToken = (req, res, next) => {
     const authHeader = req.get('Authorization');
     if (!authHeader) {

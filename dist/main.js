@@ -8,17 +8,19 @@ const db_1 = require("./storage/db");
 const middleware_1 = require("./middleware");
 const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
-app.use(middleware_1.allowCors);
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
+app
+    .use(middleware_1.allowCors)
+    .use(express_1.default.json())
+    .use(express_1.default.urlencoded({ extended: true }))
+    .get('/', (req, res) => {
     res.json({
         message: 'Welcome to BLOG API!'
     });
     return;
-});
-app.use('/article', routes_1.default.article);
-app.use('/auth', routes_1.default.auth);
+})
+    .use('/article', routes_1.default.article)
+    .use('/auth', routes_1.default.auth)
+    .use(middleware_1.catchError);
 const PORT = process.env.PORT;
 (0, db_1.connectDb)(() => {
     app.listen(PORT, () => {

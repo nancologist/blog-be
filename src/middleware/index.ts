@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express'
+import { Request, Response, NextFunction, RequestHandler, ErrorRequestHandler } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 export const allowCors = (req: Request, res: Response, next: NextFunction) => {
@@ -7,6 +7,21 @@ export const allowCors = (req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 }
+
+export const catchError: ErrorRequestHandler = (err, req, res, next) => {
+  if (req.url === '/auth/check-token') {
+    // console.log('Client\'s auth on first load failed.');
+    return;
+  }
+
+  if (req.url.split('/')[1] === 'auth') {
+    res.status(401).json(err);
+    return
+  }
+
+  res.status(500).json(err)
+  return;
+};
 
 export const validateToken = (req: any, res: Response, next: NextFunction) => {
   const authHeader = req.get('Authorization');
