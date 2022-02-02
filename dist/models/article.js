@@ -12,6 +12,7 @@ class Article {
         else {
             this.createdAt = Date.now();
         }
+        this.category = props.category;
         this.title = props.title;
         this.body = props.body;
         this.imageName = props.imageName || undefined;

@@ -7,7 +7,7 @@ import Article from '../models/article';
 import { InsertOneResult } from 'mongodb';
 
 export const postArticle: RequestHandler = async (req: Request, res: Response) => {
-  const { articleTitle, articleBody } = req.body
+  const { articleCategory, articleTitle, articleBody } = req.body
 
   let imgFile: File;
   let imageName = undefined;
@@ -22,6 +22,7 @@ export const postArticle: RequestHandler = async (req: Request, res: Response) =
     }
 
     const article = new Article({
+      category: articleCategory,
       title: articleTitle,
       body: articleBody,
       imageName

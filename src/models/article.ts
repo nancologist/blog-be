@@ -5,6 +5,7 @@ const collName = 'articles'
 
 class Article {
   _id?: ObjectId;
+  category: string;
   title: string;
   body: string;
   imageName?: string;
@@ -19,10 +20,11 @@ class Article {
       this.createdAt = Date.now();
     }
 
-    this.title = props.title
-    this.body = props.body
-    this.imageName = props.imageName || undefined
-    this.tags = props.tags
+    this.category = props.category
+    this.title = props.title;
+    this.body = props.body;
+    this.imageName = props.imageName || undefined;
+    this.tags = props.tags;
   }
 
   save() {
@@ -54,6 +56,7 @@ class Article {
 
 type Props = {
   _id?: string;
+  category: string;
   title: string;
   body: string;
   imageName?: string;
