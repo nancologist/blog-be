@@ -17,7 +17,7 @@ const fs_1 = __importDefault(require("fs"));
 const aws_s3_1 = __importDefault(require("../storage/aws-s3"));
 const article_1 = __importDefault(require("../models/article"));
 const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { articleTitle, articleBody } = req.body;
+    const { articleCategory, articleTitle, articleBody } = req.body;
     let imgFile;
     let imageName = undefined;
     let s3Res;
@@ -30,6 +30,7 @@ const postArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             fs_1.default.unlinkSync(imgFile.path);
         }
         const article = new article_1.default({
+            category: articleCategory,
             title: articleTitle,
             body: articleBody,
             imageName
