@@ -80,7 +80,7 @@ export const getArticle: RequestHandler = async (req: Request, res: Response) =>
     const article = await Article.getSingle(req.params.articleId)
     res.json(article)
   } catch (err) {
-    console.error(err);
+    res.status(404).json({ code: 'NOT_FOUND' })
   }
 };
 
@@ -95,13 +95,13 @@ export const deleteArticle: RequestHandler = async (req, res) => {
       const deletedArticle = dbRes.value as Article;
       if (deletedArticle.imageName) {
         const s3Res = await s3.deleteFile(deletedArticle.imageName)
-        
+
         if (s3Res.$metadata.httpStatusCode === 204) {
           resCode.push('FILE_DELETED');
         }
       }
     }
-    
+
     res.json({
       code: resCode,
     })

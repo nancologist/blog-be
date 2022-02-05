@@ -87,7 +87,7 @@ const getArticle = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.json(article);
     }
     catch (err) {
-        console.error(err);
+        res.status(404).json({ code: 'NOT_FOUND' });
     }
 });
 exports.getArticle = getArticle;
