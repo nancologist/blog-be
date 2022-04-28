@@ -24,8 +24,6 @@
 11. `npm install --save multer`
 12. `npm install --save-dev @types/multer`
 
-13. UPDATE: AS IT REDUCE THE DEVELOPMENT SPEED, I HAVE CHANGED THE WHOLE BACKEND CODE TO NORMAL NODEJS (JAVASCRIPT), BUT IF YOU NEED YOU CAN USE ABOVE STEPS TO HAVE NODEJS + EXPRESSJS + TS
-
 14. `npm install @aws-sdk/client-s3`
 15. `npm install --save-dev dotenv` (Put it in the NPM RUN script and NOT on the code otherwise Heroku yells that the dependency is not found as it is a Dev dep package!)
 16. ~~`npm i oracledb` Orcale SODA~~
