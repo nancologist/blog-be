@@ -1,14 +1,19 @@
-# Blog - Backend (NodeJS + ~~TS~~)
+# Blog - Backend
+
+## Technologies:
+* NodeJS, Typescript, ExpressJS
+* MongoDB on Cloud (Atlas)
+* AWS S3 (AWS SDK)
 
 ## Init
 1. `sudo npm install -g typescript` (IF not installed on your machine)
 2. `tsc --init`
 3. `npm init`
 4. `npm install --save express`
-5. ~~`npm install --save body-parser`~~ (Express 4.16+ versions have re-added the BodyParser again!)
+5. `npm install --save body-parser` (Express 4.16+ versions have re-added the BodyParser again!)
 6. `npm install --save-dev @types/node`
 7. `npm install --save-dev @types/express`
-8. ~~`npm install --save-dev @types/body-parser`~~
+8. `npm install --save-dev @types/body-parser`
 9. In `tsconfig.json`:
     * `"rootDir": "./src"`
     * `"outDir": "./dist"` (also change the package.json scripts)
@@ -16,7 +21,7 @@
 10. `npm install --save-dev nodemon`
 
 11. `npm install --save multer`
-12. ~~`npm install --save-dev @types/multer`~~
+12. `npm install --save-dev @types/multer`
 
 13. UPDATE: AS IT REDUCE THE DEVELOPMENT SPEED, I HAVE CHANGED THE WHOLE BACKEND CODE TO NORMAL NODEJS (JAVASCRIPT), BUT IF YOU NEED YOU CAN USE ABOVE STEPS TO HAVE NODEJS + EXPRESSJS + TS
 
