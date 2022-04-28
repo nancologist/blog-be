@@ -4,6 +4,7 @@
 * NodeJS, Typescript, ExpressJS
 * MongoDB on Cloud (Atlas)
 * AWS S3 (AWS SDK)
+* Automated Deployment on Heroku (triggered via push on master)
 
 ## Init
 1. `sudo npm install -g typescript` (IF not installed on your machine)
