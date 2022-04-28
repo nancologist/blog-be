@@ -27,11 +27,7 @@
 14. `npm install @aws-sdk/client-s3`
 15. `npm install --save-dev dotenv` (Put it in the NPM RUN script and NOT on the code otherwise Heroku yells that the dependency is not found as it is a Dev dep package!)
 16. ~~`npm i oracledb` Orcale SODA~~
-
-17. UPDATE: I will go back to TS for some parts... (because it can help and save time!!)
-
-18. `npm install --save-dev @types/multer`
-19.
+17. `npm install --save-dev @types/multer`
 
 ## Run
 1. ~~`tsc --watch`~~
